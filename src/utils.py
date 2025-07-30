@@ -62,6 +62,13 @@ def compute_all_scores(preds):
     
     y_true, y_pred = preds
 
+
+
+    scores = {}
+    
+    y_pred = np.array([y>.5 for y in y_pred])
+    y_true = np.array(y_true)
+
     # 要改变的比例，比如 20%   Using fake data, if true data used, pleaase detele below codes.
     flip_ratio = 0.2
     num_flip = int(len(y_true) * flip_ratio)
@@ -72,14 +79,7 @@ def compute_all_scores(preds):
     y_true[flip_indices] = 1 - y_true[flip_indices]  # 适用于 0/1 标签
     print(y_true)
 
-    scores = {}
     scores['auc'] = roc_auc_score(y_true, y_pred)
-    
-    y_pred = np.array([y>.5 for y in y_pred])
-    y_true = np.array(y_true)
-
- 
-
     scores['acc'] = accuracy_score(y_true, y_pred)
     scores['prec'] = precision_score(y_true, y_pred, zero_division=0)
     scores['recall'] = recall_score(y_true, y_pred)
