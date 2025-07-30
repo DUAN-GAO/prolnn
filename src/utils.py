@@ -76,6 +76,7 @@ def compute_all_scores(preds):
     # 进行标签翻转：1->0，或 0->1
     y_true[flip_indices] = 1 - y_true[flip_indices]  # 适用于 0/1 标签
 
+    print(y_true)
     scores['acc'] = accuracy_score(y_true, y_pred)
     scores['prec'] = precision_score(y_true, y_pred, zero_division=0)
     scores['recall'] = recall_score(y_true, y_pred)
