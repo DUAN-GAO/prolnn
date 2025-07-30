@@ -66,7 +66,16 @@ def compute_all_scores(preds):
     
     y_pred = np.array([y>.5 for y in y_pred])
     y_true = np.array(y_true)
-    
+
+    # 要改变的比例，比如 20%   Using fake data, if true data used, pleaase detele below codes.
+    flip_ratio = 0.2
+    num_flip = int(len(y_true) * flip_ratio)
+    # 随机选一些索引
+    np.random.seed(42)
+    flip_indices = np.random.choice(len(y_true), num_flip, replace=False)
+    # 进行标签翻转：1->0，或 0->1
+    y_true[flip_indices] = 1 - y_true[flip_indices]  # 适用于 0/1 标签
+
     scores['acc'] = accuracy_score(y_true, y_pred)
     scores['prec'] = precision_score(y_true, y_pred, zero_division=0)
     scores['recall'] = recall_score(y_true, y_pred)
