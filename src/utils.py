@@ -155,6 +155,7 @@ def loop(config, loader, model, criterion, optimizer=None, training=True, return
     # log = compute_all_scores([all_targets, all_outputs])
     print("finished")
     log["loss"] = avg_meter.avg
+    log = "finished"
     if return_preds:
         return log, [all_ids, all_targets, all_outputs]
     return log
