@@ -152,10 +152,8 @@ def loop(config, loader, model, criterion, optimizer=None, training=True, return
         all_ids.extend(ids)
         if batch_idx % 5 == 0:
             print(f"\tBatch [{batch_idx}/{len(loader)}] Loss: {avg_meter.avg:.2f}")
-    # log = compute_all_scores([all_targets, all_outputs])
-    print("finished")
-    # log["loss"] = avg_meter.avg
-    log = "finished"
+    log = compute_all_scores([all_targets, all_outputs])
+    log["loss"] = avg_meter.avg
     if return_preds:
         return log, [all_ids, all_targets, all_outputs]
     return log
